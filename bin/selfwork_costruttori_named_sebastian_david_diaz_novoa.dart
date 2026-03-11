@@ -1,35 +1,28 @@
 
 void main() {
+
   final product1 = Product(id: 0, name: "Tastiera", price: 60);
-  final product2 = DiscountProduct(id: 1, name: "Lavatrice", price: 500);
+  
+  final product2 = Product.discount(id: 1, name: "Lavatrice", originalPrice: 500);
 
   print("Vi presentiamo una ${product1.name} al prezzo di ${product1.price} euro");
-  print("Vi presentiamo una ${product2.name} al prezzo di originale ${product2.price} euro, ma con lo sconto del 20% lo pagate solo ${product2.finalPrice}");
- 
+  print("Vi presentiamo una ${product2.name} scontata del 20%, ora costa solo ${product2.price} euro");
 }
 
-class Product{
+class Product {
   final int id;
   final String name;
-  final int price;
+  final double price;
 
   Product({
     required this.id,
     required this.name,
     required this.price,
   });
-}
 
-class DiscountProduct extends Product {
-  
-  DiscountProduct({
-    required super.id,
-    required super.name,
-    required super.price,
-    });
-
-
-  double get discountAmount => price * 0.20;
-
-  double get finalPrice => price - discountAmount;
+  Product.discount({
+    required this.id,
+    required this.name,
+    required double originalPrice,
+  }) : price = originalPrice - (originalPrice * 0.20);
 }
